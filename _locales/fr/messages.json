@@ -1,0 +1,18 @@
+{
+    "extensionName": { "message": "regimail" }, 
+    "extensionDescription": { "message": "AddOn pour regimail" },
+    "mainButton": { "message": "regimail" },
+    "openConfig": { "message": "Ouvrir les paramètres regify"},
+    "openInvite": { "message": "Inviter des utilisateurs à regify"},
+    "sendButton": { "message": "envoyer comme regimail"},
+    "noBCC": { "message": "Vous ne pouvez pas utiliser regimail avec BCC !" },
+    "noEmptySubject": { "message": "Vous ne devez pas utiliser de regimail avec un sujet vide !"},
+    "oneRecipient": { "message": "Il vous faut au moins un destinataire !"},
+    "noRegifyClient": { "message": "Impossible de trouver l'exécutable du client regify. Veuillez installer le programme d'installation normal de regify client.\n\nSous Windows, il doit se trouver à l'adresse C:\\Program Files (x86)\\regify client_client.exe.\nSous Linux, il doit se trouver dans /usr/local/bin/regify_client ou /usr/bin/regify_client."},
+    "noHome": { "message": "Impossible d'obtenir le répertoire d'origine de regify. Essayez d'abord de lancer le client regify à partir de votre menu de démarrage pour créer une configuration."},
+    "noTemp": { "message": "Impossible d'identifier ou de trouver un dossier temporaire.\n\nLe mieux est de contacter support@regify.com. Indiquez-nous votre système d'exploitation et sa version ainsi que la version de Thunderbird."},
+    "failedToGetAttachment": { "message": "Une annexe ne peut être jointe. Veuillez joindre uniquement les fichiers disponibles localement. Les fichiers joints à partir d'autres emails ne fonctionnent pas en raison des restrictions de l'API de Thunderbird." },
+    "failedAttachVerify": { "message": "Impossible de joindre %1. Le fichier est probablement corrompu."},
+    "creationFailed": { "message": "La création du regimail a échoué.\n\nSi vous n'avez pas reçu de message d'erreur du client regify, le mieux est d'ouvrir la console de Thunderbird (Ctrl+Shift+j) et de vérifier si des informations supplémentaires s'y trouvent."},
+    "failedRecipientParse": { "message": "L'analyse syntaxique d'un destinataire a échoué. Vérifiez que tous les destinataires ont une adresse électronique valide." }
+}

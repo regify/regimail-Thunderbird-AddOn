@@ -1,0 +1,50 @@
+= regimail Thunderbird Add-on
+:author: regify Team
+:email: thunderbird@regify.com
+:toc:
+:doctype: book
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+This is the source code for the regimail Thunderbird Add-on.
+
+== How to get the Add-on
+
+The current Add-on is available to Thunderbird users at the Mozilla Add-on store. Please find the regimail Thunderbird Add-on here:
+https://addons.thunderbird.net/de/thunderbird/addon/regimail/
+
+Alternatively, open the Thunderbird menu -> Add-ons and themes -> Extensions and use the search bar on top to search for _regimail_. From there, you can run the setup directly.
+
+== The Add-on functionality
+
+Currently, the regimail Thunderbird Add-on offers only a reduced set of functionality. This is the current state:
+
+[cols="4,2"]
+|=======
+|feature	|status
+
+|send regimail from compose window | done
+|open regify config | done
+|open regify invitation dialog | done
+|open compose regimail from main window | -
+|reconvert regimail to ordinary email | -
+|reconvert regimail automatically | -
+|keep unencrypted copy of sent regimails | -
+|set reminder period | -
+|take sending address from Thunderbird | -
+|=======
+
+== Self compile
+
+The Add-on is not really to become compiled. It is JavaScript code in a ZIP file. You simply have to run `make` on a Linux system to let it zip all the content together into a valid .xpi file.
+
+Run `make clean` to cleanup the folder from previous .xpi files.
+
+== License information
+
+The regimail Thunderbird Add-on is released as free software under the GPL license (GPLv3). You can redistribute it and/or modify it under the terms of this license which you can read by viewing the included LICENSE file.

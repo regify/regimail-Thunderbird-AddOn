@@ -1,0 +1,216 @@
+[
+  {
+    "namespace": "regiapi",
+    "functions": [
+      {
+        "name": "execute",
+        "type": "function",
+        "description": "Execute regify application",
+        "async": true,
+        "parameters": [
+          {
+            "name": "executable",
+            "type": "string",
+            "description": "The executable including path"
+          },
+          {
+            "name": "arrParams",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of parameters to submit to the executable"
+          }
+        ]
+      },
+      {
+        "name": "readFileText",
+        "description": "Read text file and return as string",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "filename",
+            "description": "Filename",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "readFileBinary",
+        "description": "Read text file and return as byte array",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "filename",
+            "description": "Filename",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "writeFileBinary",
+        "description": "Write binary data to file",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "filename",
+            "description": "Filename",
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "description": "data to write like file.arrayBuffer()",
+            "type": "object",
+            "isInstanceOf": "ArrayBuffer"
+          }
+        ]
+      },
+      {
+        "name": "writeFileText",
+        "description": "Write string data to file",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "filename",
+            "description": "Filename",
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "description": "String data to write",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "moveFile",
+        "description": "Move a file from one path to another",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "sourceFilePath",
+            "description": "Source path",
+            "type": "string"
+          },
+          {
+            "name": "destinationFilePath",
+            "description": "Destination path",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "fileExists",
+        "description": "Check if file exists",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "filename",
+            "description": "Filename",
+            "type": "string"
+          }
+        ]
+      },
+      { "name": "getRegifyHomeDirectory",
+        "description": "Return regify home path",
+        "type": "function",
+        "async": true,
+        "parameters": [ ]
+      },
+      { "name": "createTempFolder",
+        "description": "Return a unique temp folder for regify usage",
+        "type": "function",
+        "async": true,
+        "parameters": [ 
+          {
+            "name": "withRegifyFolder",
+            "description": "If true, it will add a unique regify subfolder",
+            "type": "boolean"
+          }
+        ]
+      },
+      {
+        "name": "deleteFolder",
+        "description": "Delete a folder and all files withing",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "folderPath",
+            "description": "Path to delete",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "deleteFileOnExit",
+        "description": "Delete that file on exit of TB",
+        "type": "function",
+        "async": false,
+        "parameters": [
+          {
+            "name": "filePath",
+            "description": "Path of the file to delete",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "alert",
+        "description": "Show some alert message",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "message",
+            "description": "Message to show",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "readDirectory",
+        "description": "Return files and folders in given path",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "path",
+            "description": "Folder to inspect",
+            "type": "string"
+          }
+        ]
+      },
+      { "name": "getRegifyExecutable",
+        "description": "Return the full path of regify executable",
+        "type": "function",
+        "async": true,
+        "parameters": [ ]
+      },
+      {
+        "name": "addAttachment",
+        "description": "Add an attachment to given window",
+        "type": "function",
+        "async": false,
+        "parameters": [
+          {
+            "name": "windowId",
+            "description": "Reference id of the window",
+            "type": "integer"
+          },
+          {
+            "name": "filePath",
+            "description": "data to write like file.arrayBuffer()",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+]
