@@ -153,7 +153,9 @@ var regiapi = class extends ExtensionCommon.ExtensionAPI {
           }
           var locations = ["C:\\Program Files (x86)\\regify client\\regify_client.exe",
                           "/usr/local/bin/regify_client",
-                          "/usr/bin/regify_client"];
+                          "/usr/bin/regify_client",
+                          "/Applications/regify client.app/Contents/MacOS/regify_client",
+                          "/Applications/regify client.app/Contents/MacOS/regify client"];
           for (let i=0; i<locations.length; i++) {
             var fileExists = false;
             try {

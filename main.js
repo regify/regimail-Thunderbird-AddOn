@@ -8,17 +8,17 @@ async function onLoad() {
     }
 
     ui.invite.onclick = async function() {
-        window.close();
         var backgroundWindow  = await browser.runtime.getBackgroundPage();
-        await backgroundWindow.showInvite();
+        window.close();
+        backgroundWindow.showInvite();
         return true;
     };
 
     ui.settings.onclick = async function() {
         // browser.runtime.sendMessage("showConfig"); // example (received in background.js)
-        window.close();
         var backgroundWindow  = await browser.runtime.getBackgroundPage();
-        await backgroundWindow.showConfig();
+        window.close();
+        backgroundWindow.showConfig();
         return true;
     };
 
@@ -31,7 +31,7 @@ async function onLoad() {
 // example async call to some web URL!
 // Important: Needs "<all_urls>" permission in manifest file!
 // Call like this:
-// var ret = await call("https://portal.regify.com/regify2.php");
+// var ret = await call("https://some-provider.com/regify2.php");
 async function call(url) {
     try {
       const myHeader = new Headers()

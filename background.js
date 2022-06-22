@@ -66,7 +66,6 @@ async function CreateRegimail(tab) {
     var attachments = await browser.compose.listAttachments(tab.id);
     if (attachments) {
         for (let i=0; i<attachments.length; i++) {
-            // console.log(i, attachments[i]);
             try {
                 var f = await getFile(attachments[i]);
             } catch(e) {
