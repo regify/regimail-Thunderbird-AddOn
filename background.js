@@ -101,7 +101,10 @@ async function CreateRegimail(tab) {
     debug(DEBUG_VERB, "Body file: ["+bodyFile+"]");
 
     // Create regimail
-    var rgfFile = await SendRegimail(tempFolder, details.subject, recipients, bodyFile, files);
+    let senderName = extractName(details.from);
+    let senderAddress = extractMail(details.from);
+
+    var rgfFile = await SendRegimail(tempFolder, details.subject, recipients, bodyFile, files, senderAddress);
     if (!rgfFile) {
         browser.regiapi.alert(lg("creationFailed"));
         debug(DEBUG_VERB, "Cleanup [" + tempFolder + "]");
@@ -140,12 +143,16 @@ async function CreateRegimail(tab) {
         debug(DEBUG_VERB, 
             "Adding plaintext body [" + home + "regify_default_message.txt]...");
         let txt = await browser.regiapi.readFileText(home + "regify_default_message.txt");
+        txt = txt.replace("@SENDERNAME@", senderName);
+        txt = txt.replace("@SENDERADDRESS@", senderAddress);
         browser.compose.setComposeDetails(tab.id, { plainTextBody: txt });
     } else {
         // The message is being composed in HTML mode. Parse the message into an HTML document.
         debug(DEBUG_VERB, 
             "Adding html body ["+home + "regify_default_message.htm]...");
         let txt = await browser.regiapi.readFileText(home + "regify_default_message.htm");
+        txt = txt.replace("@SENDERNAME@", senderName);
+        txt = txt.replace("@SENDERADDRESS@", senderAddress);
         browser.compose.setComposeDetails(tab.id, { body: txt });
     }
 
@@ -255,21 +262,45 @@ function getFilePart(path) {
  * Will return "mirja@company.de" in both cases.
  * Will return false in case of an invalid email address.
  * @param {string} mailaddress 
- * @returns {string}
+ * @returns {string} address
  */
 function extractMail(mailaddress) {
     if (mailaddress.substr(-1,1) == ">") {
         // Extract mail part between <>
-        var regex = /<(.*)>/g;
-        var matches = regex.exec(mailaddress);
+        let regex = /<(.*)>/g;
+        let matches = regex.exec(mailaddress);
         mailaddress = matches[1];
     }
     // validate against anystring@anystring.anystring
-    var re = /\S+@\S+\.\S+/;
+    let re = /\S+@\S+\.\S+/;
     if (re.test(mailaddress)) {
         return mailaddress;
     }
     return false;
+}
+
+/**
+ * Extract the name of a sender if given mailadress is 
+ * in format "Mirja Böse <mirja@company.de>".
+ * 
+ * If no sender name is available, it returns the
+ * given mailaddress as fallback.
+ * 
+ * @param {string} mailaddress 
+ * @returns {string} name
+ */
+function extractName(mailaddress) {
+    let regex = /^(.*)<.*>/g;
+    let matches = regex.exec(mailaddress);
+    try {
+        let name = matches[1];
+        if (name != "" || name !== undefined) {
+            return name.trim();
+        }
+    } catch(e) {
+        // fallback
+        return mailaddress;
+    }
 }
 
 function b64encode(str) {
