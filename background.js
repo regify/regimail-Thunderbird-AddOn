@@ -218,7 +218,7 @@ function debug(level, ...message) {
     message.forEach(msg => {
         switch (level) {
             case DEBUG_VERB:
-                // console.log(msg);
+                console.log(msg);
                 break;
             case DEBUG_WARN:
                 console.warn(msg);
@@ -332,7 +332,7 @@ async function SendRegimail(tempFolder, strSubject, arrRecipients, strBodyFile, 
                               "-d", "5"
                              );
     if (strSender != "") {
-        Arguments = Arguments.concat([ "-c", strSender ]);
+        Arguments = Arguments.concat([ "-c", b64encode(strSender)]);
     }
     Arguments = Arguments.concat(arrAttachments);
 
