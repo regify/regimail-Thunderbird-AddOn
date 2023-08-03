@@ -12,7 +12,7 @@ var regiapi = class extends ExtensionCommon.ExtensionAPI {
         // Execute a file with given parameters
         // Hint: 
         // var Arguments = new Array("-C", "thunderbird", "-b");
-        async execute(executable, arrParams) {
+        async execute(executable, arrParams, blocking) {
           var fileExists = await IOUtils.exists(executable);
           if (!fileExists) {
             Services.wm.getMostRecentWindow("mail:3pane")
@@ -34,10 +34,10 @@ var regiapi = class extends ExtensionCommon.ExtensionAPI {
 
           if (xulRuntime.OS.toLowerCase().substring(0, 3) != "win") {
             // Linux and Mac need UTF8 based
-            process.runw(true, arrParams, arrParams.length);
+            process.runw(blocking, arrParams, arrParams.length);
           } else {
             // Windows is fine with UTF16/UCS encoding
-            process.run(true, arrParams, arrParams.length);
+            process.run(blocking, arrParams, arrParams.length);
           }
           return true;
         },

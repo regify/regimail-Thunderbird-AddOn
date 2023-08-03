@@ -20,6 +20,11 @@
               "type": "string"
             },
             "description": "Array of parameters to submit to the executable"
+          },
+          {
+            "name": "blocking",
+            "description": "If true, it will wait for the result",
+            "type": "boolean"
           }
         ]
       },

@@ -190,7 +190,7 @@ async function showConfig() {
         return false;
     }
     var Arguments = new Array("-C", "thunderbird", "-b");
-    await browser.regiapi.execute(client, Arguments);
+    await browser.regiapi.execute(client, Arguments, false);
     return true;
 }
 
@@ -205,7 +205,7 @@ async function showInvite() {
         return false;
     }
     var Arguments = new Array("-I");
-    await browser.regiapi.execute(client, Arguments);
+    await browser.regiapi.execute(client, Arguments, false);
     return true;
 }
 
@@ -342,7 +342,7 @@ async function SendRegimail(tempFolder, strSubject, arrRecipients, strBodyFile, 
         debug(DEBUG_CRIT, "Missing regify client executable!");
         return false;
     }
-    var ret = await browser.regiapi.execute(client, Arguments);
+    var ret = await browser.regiapi.execute(client, Arguments, true);
     if (!ret) {
         debug(DEBUG_CRIT, "Calling the regify executable failed!");
         return false;
