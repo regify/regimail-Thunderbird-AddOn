@@ -27,7 +27,18 @@ var regiapi = class extends ExtensionCommon.ExtensionAPI {
           process.init(progPath);
           process.startHidden = false;
           process.noShell = true;
-          process.run(true, arrParams, arrParams.length);
+
+          var xulRuntime = Cc[
+            "@mozilla.org/xre/app-info;1"
+          ].getService(Ci.nsIXULRuntime);
+
+          if (xulRuntime.OS.toLowerCase().substring(0, 3) != "win") {
+            // Linux and Mac need UTF8 based
+            process.runw(true, arrParams, arrParams.length);
+          } else {
+            // Windows is fine with UTF16/UCS encoding
+            process.run(true, arrParams, arrParams.length);
+          }
           return true;
         },
         async alert(message) {
