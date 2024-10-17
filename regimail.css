@@ -12,6 +12,7 @@
     padding: 5px 15px 5px 15px;
     cursor: default;
     background-color: transparent;
+    color: #222222;
 }
 
 .menuOpt:not(:last-child) {
