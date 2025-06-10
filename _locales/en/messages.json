@@ -2,19 +2,18 @@
     "extensionName": { "message": "regimail" }, 
     "extensionDescription": { "message": "AddOn for regimail" },
     "mainButton": { "message": "regimail" },
-    "openConfig": { "message": "Open regify settings"},
     "openInvite": { "message": "Invite user to regify"},
     "sendButton": { "message": "send as regimail"},
     "noBCC": { "message": "You must not use regimail together with BCC!" },
     "noEmptySubject": { "message": "You must not use regimail with empty subject!"},
     "oneRecipient": { "message": "You need at least one recipient!"},
-    "noRegifyClient": { "message": "Can not find regify client executable. Please install regular regify client setup.\n\nOn Windows, it should be at C:\\Program Files (x86)\\regify client\\regify_client.exe.\nOn Linux, it should be at /usr/local/bin/regify_client or /usr/bin/regify_client."},
     "noHome": { "message": "Failed to get regify home directory. Try starting regify client first from your start menu to create a configuration."},
     "noTemp": { "message": "Failed to identify or find a temp folder.\n\nBest to contact support@regify.com. Tell us your Operating System and version and your Thunderbird version."},
     "failedToGetAttachment": { "message": "One attachment can not get attached. Please attach only files locally available. Files attached from other emails do not work due to restrictions in Thunderbird API." },
     "failedAttachVerify": { "message": "Failed to attach %1. File is possibly corrupted."},
     "creationFailed": { "message": "Creating the regimail failed.\n\nIf you got no error message from regify client, best to open the Thunderbird console (Ctrl+Shift+j) and check for any additional information there."},
-    "failedRecipientParse": { "message": "Failed to parse a recipient. Check all recipients for having a valid email address." }
-
+    "failedRecipientParse": { "message": "Failed to parse a recipient. Check all recipients for having a valid email address." },
+    "noRegimail": { "message": "The selected message is not a regimail."},
+    "readMsg": { "message": "Read message" }
 
 }

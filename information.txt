@@ -4,10 +4,5 @@ regimail Thunderbird AddOn information:
 See valid TB versions for your manifest file:
 https://addons.thunderbird.net/en-US/thunderbird/pages/appversions/
 
-Use the nn.n versions whenever possible (nn.* is not allowed for WebExperiment AddOn).
-
-Documentation links for the Thunderbird APIs used in WebExperiment (regiapi) are
-in the regiapi.js file at the bottom.
-
 All about AddOns, updates and submission happens here:
 https://addons.thunderbird.net/de/developers/addons

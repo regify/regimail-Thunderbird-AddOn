@@ -2,15 +2,15 @@
     "manifest_version": 2,
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "0.6.5",
+    "version": "1.0.0",
     "author": "regify GmbH",
     "homepage_url": "https://www.regify.com",
     "default_locale": "en",
     "applications": {
         "gecko": {
             "id": "regimail@regify.com",
-            "strict_min_version": "91.0",
-            "strict_max_version": "137.0"
+            "strict_min_version": "128.0",
+            "strict_max_version": "139.0"
         }
     },
     "icons": {
@@ -19,10 +19,15 @@
         "16": "images/ico_regimail_16x16.png"
     },
     "background": {
-        "scripts": [ "background.js" ]
+        "scripts": [
+            "includes/utils.js",
+            "background.js"
+        ]
+    },
+    "options_ui": {
+        "page": "options.html"
     },
     "browser_action": {
-        "default_popup": "main.html",
         "default_title": "__MSG_mainButton__",
         "default_icon": "images/ico_regimail_32x32.png"
     },
@@ -35,16 +40,7 @@
         "tabs",
         "compose",
         "storage",
-        "compose.send"
-    ],
-    "experiment_apis": {
-        "regiapi": {
-          "schema": "regiapi.json",
-          "parent": {
-            "scopes": ["addon_parent"],
-            "paths": [["regiapi"]],
-            "script": "regiapi.js"
-          }
-        }
-      }
+        "compose.send",
+        "notifications"
+    ]
 }

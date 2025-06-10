@@ -2,17 +2,17 @@
     "extensionName": { "message": "regimail" }, 
     "extensionDescription": { "message": "AddOn für regimail" },
     "mainButton": { "message": "regimail" },
-    "openConfig": { "message": "Öffne regify-Einstellungen"},
     "openInvite": { "message": "Lade Nutzer zu regify ein"},
     "sendButton": { "message": "Als regimail senden"},
     "noBCC": { "message": "Sie dürfen regimail nicht zusammen mit BCC verwenden!" },
     "noEmptySubject": { "message": "Sie dürfen keinen leeren Betreff für regimail verwenden!"},
     "oneRecipient": { "message": "Sie benötigen mindestens einen Empfänger!"},
-    "noRegifyClient": { "message": "Die ausführbare Datei für den regify-Client kann nicht gefunden werden. Bitte installieren Sie das reguläre regify-Client-Setup.\n\nUnter Windows sollte es sich unter C:\\Program Files (x86)\\regify client\\regify_client.exe befinden.\nUnter Linux sollte es sich unter /usr/local/bin/regify_client oder /usr/bin/regify_client befinden."},
     "noHome": { "message": "Das regify Home-Verzeichnis konnte nicht ermittelt werden. Versuchen Sie zunächst, den regify-Client über das Startmenü zu starten, um eine Konfiguration zu erstellen."},
     "noTemp": { "message": "Ein temporärer Ordner konnte nicht identifiziert oder gefunden werden.\n\nWenden Sie sich am besten an support@regify.com. Nennen Sie uns Ihr Betriebssystem und Ihre Thunderbird-Version."},
     "failedToGetAttachment": { "message": "Ein Anhang kann nicht angehängt werden. Bitte hängen Sie nur lokal verfügbare Dateien an. Dateien, die von anderen E-Mails angehängt werden, funktionieren aufgrund von Einschränkungen in der Thunderbird-API nicht." },
     "failedAttachVerify": { "message": "Anhängen von %1 fehlgeschlagen. Die Datei ist möglicherweise beschädigt."},
     "creationFailed": { "message": "Das Erstellen der Regimail ist fehlgeschlagen.\n\nWenn Sie keine Fehlermeldung vom regify-Client erhalten haben, öffnen Sie am besten die Thunderbird-Konsole (Strg+Umschalt+j) und suchen Sie dort nach zusätzlichen Informationen."},
-    "failedRecipientParse": { "message": "Ein Empfänger konnte nicht verarbeitet werden. Überprüfen Sie alle Empfänger auf gültige E-Mail-Adressen." }
+    "failedRecipientParse": { "message": "Ein Empfänger konnte nicht verarbeitet werden. Überprüfen Sie alle Empfänger auf gültige E-Mail-Adressen." },
+    "noRegimail": { "message": "Die gewählte Nachricht ist keine regimail."},
+    "readMsg": { "message": "Nachricht lesen" }
 }

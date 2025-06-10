@@ -29,14 +29,15 @@ Currently, the regimail Thunderbird Add-on offers only a reduced set of function
 |feature	|status
 
 |send regimail from compose window | done
-|open regify config | done
-|open regify invitation dialog | done
-|open compose regimail from main window | -
+|open and read regimails | done
+|reply to regimails opened | done
+|open regify config | done (after read or compose)
+|open regify invitation dialog | -
 |reconvert regimail to ordinary email | -
 |reconvert regimail automatically | -
 |keep unencrypted copy of sent regimails | -
 |set reminder period | -
-|take sending address from Thunderbird | -
+|take sending address from Thunderbird | done (always using sender address of the current account)
 |=======
 
 == Self compile
@@ -48,3 +49,5 @@ Run `make clean` to cleanup the folder from previous .xpi files.
 == License information
 
 The regimail Thunderbird Add-on is released as free software under the GPL license (GPLv3). You can redistribute it and/or modify it under the terms of this license which you can read by viewing the included LICENSE file.
+
+This software is loading and executing non open source code from external regify application servers. The regify application servers are operated by regify GmbH, a company based in Germany. The regify application servers and the provided code are not open source and are not part of this software license.
