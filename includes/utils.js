@@ -64,20 +64,26 @@ async function deleteSetting(key) {
  * @param {int} level debug level
  * @param  {...any} message one or more messages
  */
-function debug(level, ...message) {
+async function debug(level, ...message) {
+    let debug = await getSetting("debug", "");
+    if (debug !== "true" && level != DEBUG_CRIT) {
+        // debug mode not enabled, do not output
+        // anything except of CRIT
+        return;
+    }
     message.forEach(msg => {
         switch (level) {
             case DEBUG_VERB:
-                console.log(msg);
+                console.log(DEBUG_VERB, msg);
                 break;
             case DEBUG_WARN:
                 console.warn(msg);
                 break;
             case DEBUG_CRIT:
-                console.error(msg);
+                console.error(DEBUG_CRIT, msg);
                 break;
             default:
-                console.log(msg);
+                console.log(DEBUG_VERB, msg);
                 break;
         } 
     });
@@ -116,7 +122,7 @@ async function callRest(url) {
       const json = await response.json()
       return json;
     } catch (err) {
-      console.error(err)
+      debug(DEBUG_CRIT, err)
     }
   }
 

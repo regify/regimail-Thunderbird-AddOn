@@ -17,23 +17,38 @@ browser.browserAction.onClicked.addListener(async (tab) => {
     await readRegimail(tab);
 });
 
-messenger.browserAction.disable();
+messenger.browserAction.disable(); // disable regimail button by default!
 
-// Watch any selection change and store the last selected messageId
+// Watch any list selection change and store the last selected messageId
 browser.mailTabs.onSelectedMessagesChanged.addListener(async (tab, selectedMessages) => {
     try {
         globalSelectedMessageId = selectedMessages["messages"][0].id;
         if (await getRGFAttachment(globalSelectedMessageId) === null) {
             globalSelectedMessageId = null;
-            console.log(`Selected message ID: none`);
+            debug(DEBUG_VERB, `Selected message ID: none`);
             await messenger.browserAction.disable();
             return;
         }
-        console.log(`Selected message ID: ${globalSelectedMessageId}`);
+        debug(DEBUG_VERB, `Selected message ID: ${globalSelectedMessageId}`);
         await messenger.browserAction.enable();
     } catch (e) {
         globalSelectedMessageId = null;
-        console.log(`Selected message ID: none (after error!)`);
+        debug(DEBUG_VERB, `Selected message ID: none (after error!)`);
+        await messenger.browserAction.disable();
+    }
+});
+
+// disable regimail button on all other tabs than main window
+browser.tabs.onActivated.addListener(async (activeInfo) => {
+    const tab = await browser.tabs.get(activeInfo.tabId);
+    if (tab.type === "mail") {
+        if (globalSelectedMessageId !== null) {
+            await messenger.browserAction.enable();
+        } else {
+            await messenger.browserAction.disable();
+        }
+    } else {
+        debug(DEBUG_VERB, `Selected message ID: none (because we're not in main window)`);
         await messenger.browserAction.disable();
     }
 });
@@ -47,7 +62,7 @@ browser.mailTabs.onSelectedMessagesChanged.addListener(async (tab, selectedMessa
 async function showRegifyWin(url) {
     if (await isRegifyWinOpen()) {
         // close the previous window
-        console.log("Closing existing regify window");
+        debug(DEBUG_VERB, "Close existing regify window");
         await closeRegifyWindow();
     }
     globalRegifyWin = await browser.windows.create({
@@ -58,7 +73,6 @@ async function showRegifyWin(url) {
         top: await getSetting("top", null),
         left: await getSetting("left", null)
     });
-    // console.log("Opened Window", globalRegifyWin, url);
 }
 
 /**
@@ -119,12 +133,13 @@ async function getRegifyUrl() {
                 throw new Error('Port number must be a valid integer between 0 and 65535');
             }
 
+            debug(DEBUG_VERB, `Trying developer URL: https://${domain}.regify.com:${port}/check.html`);
             let response = await fetch(`https://${domain}.regify.com:${port}/check.html`);
             if (response.ok) {
                 return `https://${domain}.regify.com:${port}/`;
             }
         } catch (e) {
-            console.error(e);
+            debug(DEBUG_WARN, e);
         }
         notify(`Unable to connect to https://${domain}.regify.com:${port}/check.html. 
             Therefore I continue without developer domain…`,
@@ -142,16 +157,17 @@ async function getRegifyUrl() {
     for (let i = 1; i <= 3; i++) {
         let url = `https://apps${i}.regify.com/${defaultUrlPart}/`;
         try {
+            debug(DEBUG_VERB, `Trying regify URL: ${url}check.html`);
             let response = await fetch(url + "check.html");
             if (response.ok) {
                 return url;
             }
         } catch (e) {
-            console.warn(e);
+            debug(DEBUG_WARN, e);
         }
     }
     // nothing found :-(
-    console.error("No accessible regify server found");
+    debug(DEBUG_CRIT, "No accessible regify server found");
     return null;
 }
 
@@ -182,11 +198,11 @@ async function getRGFAttachment(messageId) {
  */
 async function readRegimail() {
     if (globalSelectedMessageId === null) {
-        console.log("No message selected")
+        debug(DEBUG_VERB, "No message selected, no way to open regimail (which one?)");
         return;
     }
 
-    var rgfFile = await getRGFAttachment(globalSelectedMessageId)
+    var rgfFile = await getRGFAttachment(globalSelectedMessageId);
     if (rgfFile === null) {
         // not a regimail
         notify(lg("noRegimail"));
@@ -205,8 +221,7 @@ async function readRegimail() {
 async function CreateRegimail(tab) {
     globalCurrentTabId = tab.id;
     let details = await browser.compose.getComposeDetails(tab.id);
-    // debug(DEBUG_VERB, "Message details:", details);
-    // debug(DEBUG_VERB, "Tab ID: " + globalCurrentTabId);
+    debug(DEBUG_VERB, "Message details:", details);
 
     if (details.bcc.length > 0) {
         notify(lg("noBCC"), true);

@@ -197,9 +197,9 @@ initComm_parent(); // needed once to set up parent listener
 
 try {
     const result = await askIframe('myIframe', { action: 'getData' });
-    console.log(result);
+    debug(DEBUG_VERB, result);
 } catch (error) {
-    console.error('Communication failed:', error.message);
+    debug(DEBUG_CRIT, 'Communication failed:', error.message);
 }
 
 // In iframe
@@ -209,8 +209,8 @@ initComm_iframe(); // needed once to set up iframe listener
 
 try {
     const result = await askParent({ action: 'processData', data: 'hello' });
-    console.log(result);
+    debug(DEBUG_VERB, result);
 } catch (error) {
-    console.error('Communication failed:', error.message);
+    debug(DEBUG_CRIT, 'Communication failed:', error.message);
 }
 */

@@ -24,7 +24,7 @@ async function onLoad() {
 
     var backgroundWindow = await browser.runtime.getBackgroundPage();
     if (!backgroundWindow) {
-        console.error("No background window found");
+        debug(DEBUG_CRIT, "No background window found");
         return;
     }
 
@@ -32,7 +32,7 @@ async function onLoad() {
     const regifyFrame = document.getElementById("regifyFrame");
     const regifyUrl = await backgroundWindow.getRegifyUrl();
     if (regifyUrl === null) {
-        console.error("No working regify URL found");
+        debug(DEBUG_CRIT, "No working regify URL found");
         regifyFrame.srcdoc = `<html>
         <body>
             <h1>Unable to reach the regify application servers.</h1>
@@ -69,13 +69,13 @@ async function onLoad() {
  */
 // eslint-disable-next-line no-unused-vars
 async function processParentResponse(payload) {
-    console.debug("processParentResponse", payload); // TODO: Maybe remove?
+    debug(DEBUG_VERB, "processParentResponse", payload); // TODO: Maybe remove?
     var contextObj = null;
     var contextId = null;
 
     var backgroundWindow = await browser.runtime.getBackgroundPage();
     if (!backgroundWindow) {
-        console.error("No background window found");
+        debug(DEBUG_CRIT, "No background window found");
         return Promise.reject(new Error("No background window found"));
     }
 
@@ -157,7 +157,7 @@ async function processParentResponse(payload) {
         contextId = backgroundWindow.globalCurrentTabId;
     }
     if (contextId === null || contextId === undefined) {
-        console.error("No composeTab/messageId selected");
+        debug(DEBUG_CRIT, "No composeTab/messageId selected");
         return Promise.reject(new Error("No composeTab/messageId selected"));
     }
 
@@ -184,7 +184,7 @@ async function processParentResponse(payload) {
                 file = await contextObj.getAttachmentFile(attachments[id - 1].id);
             }
             if (!file) {
-                console.error(`File [${attachments[id - 1].partName}] not found`);
+                debug(DEBUG_CRIT, `File [${attachments[id - 1].partName}] not found`);
                 return null;
             }
             return new Uint8Array(await file.arrayBuffer());
@@ -245,10 +245,10 @@ async function processParentResponse(payload) {
             const attachments = await contextObj.listAttachments(contextId);
             for (let i = attachments.length - 1; i >= 0; i--) {
                 try {
-                    console.debug("Removing attachment [" + attachments[i].name + "]...");
+                    debug(DEBUG_VERB, "Removing attachment [" + attachments[i].name + "]...");
                     await browser.compose.removeAttachment(contextId, attachments[i].id);
                 } catch (e) {
-                    console.debug("Failed to remove attachment. No sending!", e);
+                    debug(DEBUG_VERB, "Failed to remove attachment. No sending!", e);
                     return false;
                 }
             }
@@ -271,7 +271,7 @@ async function processParentResponse(payload) {
             return true;
         }
 
-        console.warn(`Unsupported processParentResponse() function with mode [${mode}]. Ignoring it.`, payload);
+        debug(DEBUG_WARN, `Unsupported processParentResponse() function with mode [${mode}]. Ignoring it.`, payload);
 
         return null; // or promise!
     } catch (error) {

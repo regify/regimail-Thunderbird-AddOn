@@ -10,15 +10,20 @@
 
   <body>
 
-    <p style="margin: 10px;">
-      Please do not activate the beta channel unless you have been asked to do so by a regify support representative.
-      The beta channel is used to test new features and compatibility or for examining bugs. 
-      It may not work as expected and may also lead to major issues in functionality and security.
-    </p>
-
     <form style="margin: 10px;">
+      <p style="margin: 10px 0; font-style: italic;">
+        Please do not activate the beta channel unless you have been asked to do so by a regify support representative.
+        The beta channel is used to test new features and compatibility or for examining bugs. 
+        It may not work as expected and may also lead to major issues in functionality and security.
+      </p>
       <label for="enableBeta">Activate beta channel</label>
       <input type="checkbox" id="enableBeta" name="enableBeta">
+      <p style="margin: 10px 0; font-style: italic;">
+        If you activate debug logging, all AddOn activity is logged into the console window!
+        Please do not activate the debug logging unless you have been asked to do so by a regify support representative.
+      </p>
+      <label for="enableDebug">Activate debug logging</label>
+      <input type="checkbox" id="enableDebug" name="enableDebug">
     </form>
 
     <script src="options.js"></script>
