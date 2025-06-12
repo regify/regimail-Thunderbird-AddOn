@@ -41,6 +41,7 @@
         "compose",
         "storage",
         "compose.send",
-        "notifications"
+        "notifications",
+        "https://*.regify.com/*"
     ]
 }

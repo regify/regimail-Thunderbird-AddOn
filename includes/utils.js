@@ -74,16 +74,16 @@ async function debug(level, ...message) {
     message.forEach(msg => {
         switch (level) {
             case DEBUG_VERB:
-                console.log(DEBUG_VERB, msg);
+                console.log(msg);
                 break;
             case DEBUG_WARN:
                 console.warn(msg);
                 break;
             case DEBUG_CRIT:
-                console.error(DEBUG_CRIT, msg);
+                console.error(msg);
                 break;
             default:
-                console.log(DEBUG_VERB, msg);
+                console.log(msg);
                 break;
         } 
     });
