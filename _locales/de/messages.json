@@ -14,5 +14,6 @@
     "creationFailed": { "message": "Das Erstellen der Regimail ist fehlgeschlagen.\n\nWenn Sie keine Fehlermeldung vom regify-Client erhalten haben, öffnen Sie am besten die Thunderbird-Konsole (Strg+Umschalt+j) und suchen Sie dort nach zusätzlichen Informationen."},
     "failedRecipientParse": { "message": "Ein Empfänger konnte nicht verarbeitet werden. Überprüfen Sie alle Empfänger auf gültige E-Mail-Adressen." },
     "noRegimail": { "message": "Die gewählte Nachricht ist keine regimail."},
-    "readMsg": { "message": "Nachricht lesen" }
+    "readMsg": { "message": "Nachricht lesen" },
+    "justPressSend": { "message": "Die Nachricht ist bereits verschlüsselt. Da Thunderbird keine API zum Versenden von Nachrichten bietet, müssen Sie nun auf die normale Schaltfläche „Senden“ klicken." }
 }

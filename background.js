@@ -223,6 +223,16 @@ async function CreateRegimail(tab) {
     let details = await browser.compose.getComposeDetails(tab.id);
     debug(DEBUG_VERB, "Message details:", details);
 
+    // prevent to re-encrypt encrypted regimail message
+    const attachments = await browser.compose.listAttachments(tab.id);
+    for (let att of attachments) {
+        debug(DEBUG_VERB, `Attachment:`, att);
+        if (att.name.endsWith(".rgf") || att.name.endsWith(".rgp")) {
+            notify(lg("justPressSend"));
+            return false;
+        }
+    }
+
     if (details.bcc.length > 0) {
         notify(lg("noBCC"), true);
         return false;

@@ -14,6 +14,7 @@
     "creationFailed": { "message": "Creating the regimail failed.\n\nIf you got no error message from regify client, best to open the Thunderbird console (Ctrl+Shift+j) and check for any additional information there."},
     "failedRecipientParse": { "message": "Failed to parse a recipient. Check all recipients for having a valid email address." },
     "noRegimail": { "message": "The selected message is not a regimail."},
-    "readMsg": { "message": "Read message" }
+    "readMsg": { "message": "Read message" },
+    "justPressSend": { "message": "The message is already encrypted. Due to the lack of a sending API in Thunderbird, you need to click the regular „Send“ button now." }
 
 }

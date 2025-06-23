@@ -14,5 +14,6 @@
     "creationFailed": { "message": "La création du regimail a échoué.\n\nSi vous n'avez pas reçu de message d'erreur du client regify, le mieux est d'ouvrir la console de Thunderbird (Ctrl+Shift+j) et de vérifier si des informations supplémentaires s'y trouvent."},
     "failedRecipientParse": { "message": "L'analyse syntaxique d'un destinataire a échoué. Vérifiez que tous les destinataires ont une adresse électronique valide." },
     "noRegimail": { "message": "Le message choisi n'est pas un regimail."},
-    "readMsg": { "message": "Read message" }
+    "readMsg": { "message": "Read message" },
+    "justPressSend": { "message": "Le message est déjà crypté. En raison de l'absence d'API d'envoi dans Thunderbird, vous devez maintenant cliquer sur le bouton „Envoyer“ habituel." }
 }

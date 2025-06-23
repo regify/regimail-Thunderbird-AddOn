@@ -180,7 +180,7 @@ function extractName(mailaddress) {
  * Displays a generic thunderbird message notification in regimail style.
  * 
  * @param {string} message Message to display
- * @param {boolean} isError If true, the message will be displayed as an error
+ * @param {boolean} [isError=true] If true, the message will be displayed as an error
  */
 function notify(message, isError = false) {
     browser.notifications.create({
