@@ -21,7 +21,8 @@
     "background": {
         "scripts": [
             "includes/utils.js",
-            "background.js"
+            "background.js",
+            "showHints.js"
         ]
     },
     "options_ui": {
@@ -37,6 +38,8 @@
     },
     "permissions": [
         "messagesRead",
+        "accountsRead",
+        "scripting",
         "tabs",
         "compose",
         "storage",

@@ -262,11 +262,19 @@ async function processParentResponse(payload) {
 
         if (mode === "compose" && payload.op === "setBodyHTML") {
             const msg = await contextObj.getComposeDetails(contextId);
+
+            const senderInfo = await ExtractSenderInfo(msg);
+            debug(DEBUG_VERB, "Sender info", JSON.stringify(senderInfo));
+
+            var msgBody = payload.body;
+            msgBody = msgBody.replaceAll("@SENDERNAME@", senderInfo.name);
+            msgBody = msgBody.replaceAll("@SENDERADDRESS@", senderInfo.email);
+
             if (msg.isPlainText) {
-                const pBody = await browser.messengerUtilities.convertToPlainText(payload.body, { flowed: true });
+                const pBody = await browser.messengerUtilities.convertToPlainText(msgBody, { flowed: true });
                 await contextObj.setComposeDetails(contextId, { plainTextBody: pBody });
             } else {
-                await contextObj.setComposeDetails(contextId, { body: payload.body });
+                await contextObj.setComposeDetails(contextId, { body: msgBody });
             }
             return true;
         }
@@ -277,4 +285,39 @@ async function processParentResponse(payload) {
     } catch (error) {
         throw error instanceof Error ? error : new Error(String(error));
     }
+}
+
+/**
+ * Tries to get sender name and mailaddress from given compose details.
+ * Returns object. 
+ * 
+ * NOTE: Check for empty email property to detect failure.
+ * 
+ * @param {object} composeDetails composeDetails of given compose message
+ * @returns {object} property:email = mailaddress, property:name = user name
+ */
+async function ExtractSenderInfo(composeDetails) {
+    let senderEmail = '';
+    let senderName = '';
+
+    // Directly get the account matching identityId (TB 76+) 
+    if (composeDetails.identityId) {
+        const account = await messenger.accounts.get(composeDetails.identityId);
+        if (account) {
+            senderEmail = account.email;
+            senderName = account.fullName;
+        }
+    }
+
+    // Fallback to 'from' property (TB 88+) 
+    if (composeDetails.from && senderEmail == "" && senderName == "") {
+        // Parse the 'from' string which is in format "Name <email@example.com>"
+        const match = composeDetails.from.match(/^(.*?)<(.*?)>$/);
+        if (match) {
+            senderName = match[1].trim();
+            senderEmail = match[2].trim();
+        }
+    }
+
+    return { email: senderEmail, name: senderName };
 }

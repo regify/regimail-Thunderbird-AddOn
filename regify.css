@@ -1,9 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #a1b4df;
-    color: #111111;
+    color: inherit !important; 
     font-family: Arial, sans-serif;
+    background-color: inherit !important; 
+    background-image: none !important;
 }
 
 .regimail-window {
@@ -20,4 +21,28 @@ body {
     border: 0;
     padding: 0;
     margin: 0;
+}
+
+@keyframes hint{
+    0% {top: 0;}
+    100% {top:-90px;} 
+}
+
+.rgfHint {
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color:rgba(215, 255, 169, 0.85);
+    border-bottom: 1px solid #005500;
+    border-left: 1px solid #005500;
+    color: #222222; 
+    padding: 10px 10px 10px 32px;
+    border-radius: 0 0 0 10px;
+    text-align: center;
+    animation: hint 0.8s linear;
+    animation-delay: 8s; /* time until it disappears */
+    animation-fill-mode: forwards;
+    background-image: url('images/ico_regimail_24x24.png');
+    background-repeat: no-repeat;
+    background-position: 6px center;
 }

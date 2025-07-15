@@ -163,17 +163,13 @@ function extractMail(mailaddress) {
  * @returns {string} name
  */
 function extractName(mailaddress) {
-    let regex = /^(.*)<.*>/g;
-    let matches = regex.exec(mailaddress);
-    try {
-        let name = matches[1];
-        if (name != "" || name !== undefined) {
-            return name.trim();
-        }
-    } catch(e) {
-        // fallback
-        return mailaddress;
+    const match = mailaddress.match(/^(.*?)\s*<[^>]+>$/);
+    if (match && match[1].trim() !== "") {
+        // Remove quotes and trim whitespace
+        return match[1].replace(/^["']|["']$/g, "").trim();
     }
+    // If no name part, return the email address itself
+    return mailaddress.trim();
 }
 
 /**

@@ -38,6 +38,13 @@ browser.mailTabs.onSelectedMessagesChanged.addListener(async (tab, selectedMessa
     }
 });
 
+// Watch any folder selection change and store the last selected messageId
+browser.mailTabs.onDisplayedFolderChanged.addListener(async (tab, displayFolder) => {
+    globalSelectedMessageId = null;
+    debug(DEBUG_VERB, `Selected folder changed, set selected message to: null`);
+    await messenger.browserAction.disable();
+});
+
 // disable regimail button on all other tabs than main window
 browser.tabs.onActivated.addListener(async (activeInfo) => {
     const tab = await browser.tabs.get(activeInfo.tabId);
@@ -52,6 +59,20 @@ browser.tabs.onActivated.addListener(async (activeInfo) => {
         await messenger.browserAction.disable();
     }
 });
+
+const scriptDetails = {
+    id: "messageHint-script",
+    js: [
+        "showHint.js"
+    ],
+    css: [
+        "regify.css"
+    ],
+    runAt: "document_idle"
+};
+
+// Register the script
+messenger.scripting.messageDisplay.registerScripts([scriptDetails]);
 
 // ----------------- REGULAR CODE -------------------
 
