@@ -138,38 +138,40 @@ async function callRest(url) {
  * @returns {string} address
  */
 function extractMail(mailaddress) {
-    if (mailaddress.substr(-1,1) == ">") {
-        // Extract mail part between <>
-        let regex = /<(.*)>/g;
-        let matches = regex.exec(mailaddress);
-        mailaddress = matches[1];
-    }
-    // validate against anystring@anystring.anystring
-    let re = /\S+@\S+\.\S+/;
-    if (re.test(mailaddress)) {
-        return mailaddress;
-    }
-    return false;
+    const m = parseMail(mailaddress);
+    if (m === null) { return "?"; }
+    return m.email;
 }
 
 /**
- * Extract the name of a sender if given mailadress is 
- * in format "Mirja Böse <mirja@company.de>".
+ * Parsing an email address "Name <email> or just "email".
+ * If no name is contained or empty, it will return email as name, too!
+ * Therefore, both name and email always contain something!
  * 
- * If no sender name is available, it returns the
- * given mailaddress as fallback.
- * 
- * @param {string} mailaddress 
- * @returns {string} name
+ * @param {string} eMail EMail entry like "Name <email> or just "email"
+ * @returns {object} Object with name and email properties or null
  */
-function extractName(mailaddress) {
-    const match = mailaddress.match(/^(.*?)\s*<[^>]+>$/);
-    if (match && match[1].trim() !== "") {
-        // Remove quotes and trim whitespace
-        return match[1].replace(/^["']|["']$/g, "").trim();
+function parseMail(eMail) {
+    const simplePattern = /([^\s@]+@[^\s@]+\.[^\s@]+)/; // just "mail"
+    const fullNamePattern = /([^<]+)<([^\s@]+@[^\s@]+\.[^\s@]+)>/; // "name <mail>"
+    let match;
+    
+    // Try to match the full format first
+    if ((match = eMail.match(fullNamePattern)) !== null) {
+        return {
+            name: match[1].trim(),
+            email: match[2]
+        };
     }
-    // If no name part, return the email address itself
-    return mailaddress.trim();
+    
+    // If not found, try the simple format
+    if ((match = eMail.match(simplePattern)) !== null) {
+        return {
+            name: match[1],
+            email: match[1]
+        };
+    }
+    return null;
 }
 
 /**

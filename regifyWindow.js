@@ -220,10 +220,10 @@ async function processParentResponse(payload) {
             if (mode === "read") {
                 const msg = await contextObj.get(contextId);
                 const sender = browser.messengerUtilities.parseMailboxString(msg.author);
-                return extractMail(sender.email);
+                return sender.email;
             }
             const msg = await contextObj.getComposeDetails(contextId);
-            return extractMail(msg.from);
+            return msg.from;
         }
 
         if (mode === "compose" && payload.op === "getBodyHTML") {
@@ -297,26 +297,24 @@ async function processParentResponse(payload) {
  * @returns {object} property:email = mailaddress, property:name = user name
  */
 async function ExtractSenderInfo(composeDetails) {
+    // TODO: Replace with parseMail function from js-mail
     let senderEmail = '';
     let senderName = '';
 
-    // Directly get the account matching identityId (TB 76+) 
-    if (composeDetails.identityId) {
-        const account = await messenger.accounts.get(composeDetails.identityId);
-        if (account) {
-            senderEmail = account.email;
-            senderName = account.fullName;
-        }
-    }
-
-    // Fallback to 'from' property (TB 88+) 
-    if (composeDetails.from && senderEmail == "" && senderName == "") {
+    if (composeDetails.from) {
         // Parse the 'from' string which is in format "Name <email@example.com>"
         const match = composeDetails.from.match(/^(.*?)<(.*?)>$/);
         if (match) {
             senderName = match[1].trim();
             senderEmail = match[2].trim();
         }
+    } else {
+        debug(DEBUG_CRIT, "The from property is missing!");
+    }
+
+    if (senderName === '' && senderEmail !== '') {
+        // Set email as name if name is missing but email available
+        senderName = senderEmail;
     }
 
     return { email: senderEmail, name: senderName };
