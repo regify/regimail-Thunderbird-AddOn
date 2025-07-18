@@ -263,12 +263,12 @@ async function processParentResponse(payload) {
         if (mode === "compose" && payload.op === "setBodyHTML") {
             const msg = await contextObj.getComposeDetails(contextId);
 
-            const senderInfo = await ExtractSenderInfo(msg);
+            const senderInfo = ExtractSenderInfo(msg);
             debug(DEBUG_VERB, "Sender info", JSON.stringify(senderInfo));
 
             var msgBody = payload.body;
-            msgBody = msgBody.replaceAll("@SENDERNAME@", senderInfo.name);
-            msgBody = msgBody.replaceAll("@SENDERADDRESS@", senderInfo.email);
+            msgBody = msgBody.replaceAll("@SENDERNAME@", escapeHtml(senderInfo.name));
+            msgBody = msgBody.replaceAll("@SENDERADDRESS@", escapeHtml(senderInfo.email));
 
             if (msg.isPlainText) {
                 const pBody = await browser.messengerUtilities.convertToPlainText(msgBody, { flowed: true });
@@ -296,26 +296,14 @@ async function processParentResponse(payload) {
  * @param {object} composeDetails composeDetails of given compose message
  * @returns {object} property:email = mailaddress, property:name = user name
  */
-async function ExtractSenderInfo(composeDetails) {
-    // TODO: Replace with parseMail function from js-mail
-    let senderEmail = '';
-    let senderName = '';
-
+function ExtractSenderInfo(composeDetails) {
     if (composeDetails.from) {
         // Parse the 'from' string which is in format "Name <email@example.com>"
-        const match = composeDetails.from.match(/^(.*?)<(.*?)>$/);
-        if (match) {
-            senderName = match[1].trim();
-            senderEmail = match[2].trim();
+        let r = parseMail(composeDetails.from);
+        if (r !== null) { 
+            return r; 
         }
-    } else {
-        debug(DEBUG_CRIT, "The from property is missing!");
     }
-
-    if (senderName === '' && senderEmail !== '') {
-        // Set email as name if name is missing but email available
-        senderName = senderEmail;
-    }
-
-    return { email: senderEmail, name: senderName };
+    debug(DEBUG_CRIT, "The .from property is missing or empty! Can't extract any sender information.");
+    return { email: "", name: "" };
 }

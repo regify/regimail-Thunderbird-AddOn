@@ -149,7 +149,7 @@ function extractMail(mailaddress) {
  * Therefore, both name and email always contain something!
  * 
  * @param {string} eMail EMail entry like "Name <email> or just "email"
- * @returns {object} Object with name and email properties or null
+ * @returns {object} Object with 'name' and 'email' properties or null
  */
 function parseMail(eMail) {
     const simplePattern = /([^\s@]+@[^\s@]+\.[^\s@]+)/; // just "mail"
@@ -202,4 +202,16 @@ function lg(identifier, ...replace) {
         text = text.replace("%" + (i + 1), replace[i]);
     }
     return text;
+}
+
+/**
+ * Escape html tags ( & < > " ' ) with html tokens to secure output.
+ * 
+ * @param {string} html 
+ * @returns {string}
+ */
+function escapeHtml(html) {
+    return html.replace(/&/g, '&amp;').replace(/</g, '&lt;').
+        replace(/>/g, '&gt;').replace(/\"/g, '&quot;').
+        replace(/\'/g, '&apos;');
 }
